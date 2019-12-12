@@ -29,4 +29,8 @@
 (global-hl-line-mode)                 ; Highlight current line
 (setq-default line-spacing '0.4)      ; Increase line-spacing.
 
+
+;; Delete trailing whitespace on save
+(add-hook 'write-file-hooks 'delete-trailing-whitespace)
+
 (provide 'init-core)

@@ -2,7 +2,7 @@
 (package-initialize)
 
 (add-to-list 'package-archives
-  '("melpa" . "https://melpa.org/packages/") t)
+	     '("melpa" . "https://melpa.org/packages/") t)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -23,8 +23,17 @@
   (evil-mode))
 
 (use-package which-key
+  :init
+  (setq which-key-idle-delay 0.5)
+  (setq which-key-idle-secondary-delay 0)
+  (setq which-key-side-window-location 'right)
+  (setq which-key-popup-type 'side-window)
   :config
   (which-key-mode))
+
+(use-package helm
+  :config
+  (helm-mode t))
 
 (use-package company
   :config
@@ -35,6 +44,5 @@
 (use-package doom-themes
   :config
   (load-theme 'doom-vibrant t))
-
 
 (provide 'init-packages)
