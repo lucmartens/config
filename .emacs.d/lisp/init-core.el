@@ -27,7 +27,7 @@
 (column-number-mode +1)               ; Display column numbers in mode line.
 (show-paren-mode 1)                   ; Highlight matching parens.
 (global-hl-line-mode)                 ; Highlight current line
-(setq-default line-spacing '0.4)      ; Increase line-spacing.
+(setq-default line-spacing '0.5)      ; Increase line-spacing.
 
 
 ;; Delete trailing whitespace on save

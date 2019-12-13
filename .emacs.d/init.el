@@ -11,7 +11,7 @@
   "Disable creation of #<file># lockfiles.")
 
 (defvar leader-key "SPC"
-  "Leader key for mnemonic command maps")
+  "Leader key for mnemonic command maps.")
 
 (defvar alt-leader-key "C-SPC"
   "Leader key for mnemonic command maps in non-normal mode.")
