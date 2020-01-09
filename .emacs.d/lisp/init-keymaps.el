@@ -5,9 +5,8 @@
 
 ;; Process menu
 (general-define-key
- :definer 'major-mode
- :states 'normal
- :keymaps 'process-menu-mode
+ :states leader-states
+ :keymaps 'process-menu-mode-map
  "d" 'process-menu-delete-process)
 
 ;; Helm mode
@@ -15,7 +14,7 @@
  :keymaps '(helm-map helm-buffer-map helm-M-x-map)
  "C-k" 'helm-previous-line
  "C-j" 'helm-next-line
- "C-SPC" 'helm-mark-current-line
+ "C-d" 'helm-buffer-run-kill-persistent
  "ESC" 'helm-keyboard-quit)
 
 ;; Company mode
@@ -25,7 +24,7 @@
  "C-k" 'company-select-previous
  "C-d" 'evil-delete-backward-char)
 
-;; unmap leader key in leader states
+;; Unmap leader key in leader states
 (general-define-key
  :keymaps leader-states
  leader-key nil)
@@ -37,6 +36,15 @@
   :non-normal-prefix alt-leader-key
   leader-key 'helm-M-x)
 
+;; [g]eneral keybindings - any mode
+(general-define-key
+ :keymaps leader-states
+ :prefix leader-key
+ :non-normal-prefix alt-leader-key
+ "g" '(:ignore t :which-key "general")
+ "gp" '(list-processes :which-key "list processes")
+ "gr" '(display-fill-column-indicator-mode :which-key "toggle column ruler"))
+
 ;; [f]ile keybindings - any mode
 (general-define-key
  :keymaps leader-states
@@ -46,7 +54,9 @@
  "ff" '(helm-find-files :which-key "find file")
  "fs" '(save-buffer :which-key "save buffer")
  "fb" '(helm-buffers-list :which-key "list buffers")
- "fr" '(revert-buffer :which-key "reload buffer"))
+ "fr" '(revert-buffer :which-key "reload buffer")
+ "fd" '(kill-this-buffer :which-key "kill this buffer")
+ "fD" '(kill-buffer :which-key "kill buffer"))
 
 ;; [p]roject keybindings - any mode
 (general-define-key
@@ -77,7 +87,8 @@
  "wh" '(evil-window-left :which-key "focus left")
  "wl" '(evil-window-right :which-key "focus right")
  "wj" '(evil-window-down :which-key "focus down")
- "wk" '(evil-window-up :which-key "focus up"))
+ "wk" '(evil-window-up :which-key "focus up")
+ "wm" '(switch-to-minibuffer :which-key "focus minibuffer"))
 
 ;; [h]elp keybindings - any mode
 (general-define-key
@@ -128,7 +139,8 @@
  "eb" '(cider-eval-buffer :which-key "eval buffer")
  "er" '(cider-eval-region :which-key "eval region")
  "en" '(cider-eval-ns-form :which-key "eval ns")
- "ec" '(cider-jack-in :which-key "jack-in"))
+ "ec" '(cider-jack-in :which-key "jack-in")
+ "eC" '(cider-jack-in-clj&cljs :which-key "jack-in cljc"))
 
 ;; [s]tructural editing - any mode
 (general-define-key
@@ -137,20 +149,34 @@
  :non-normal-prefix alt-leader-key
  "s" '(:ignore t :which-key "sedit"))
 
+;; [s]tructural editing - clojure mode
+(general-define-key
+ :states leader-states
+ :keymaps 'clojure-mode-map
+ :prefix leader-key
+ :non-normal-prefix alt-leader-key
+ "sf" '(cider-format-buffer :which-key "format buffer")
+ "sv" '(clojure-align :which-key "vertical align sexp")
+ "st" '(clojure-thread-first-all :which-key "thread first")
+ "sT" '(clojure-thread-last-all :which-key "thread last")
+ "sa" '(clojure-add-arity :which-key "add arity")
+ "sp" '(parinfer-toggle-mode :which-key "parinfer toggle"))
+
 ;; [s]tructural editing - elisp mode
 (general-define-key
  :states leader-states
  :keymaps 'emacs-lisp-mode-map
  :prefix leader-key
- :non-normal-prefix alt-leader-key)
+ :non-normal-prefix alt-leader-key
+ "sp" '(parinfer-toggle-mode :which-key "parinfer toggle"))
 
 
-;; [s]tructural editing - clojure  mode
+;; [s]tructural editing - javascript mode
 (general-define-key
  :states leader-states
- :keymaps 'clojure-mode
+ :keymaps 'js-mode-map
  :prefix leader-key
  :non-normal-prefix alt-leader-key
- "sf" '(cider-format-buffer :which-key "format buffer"))
+ "sf" '(prettier-js :which-key "format buffer"))
 
 (provide 'init-keymaps)

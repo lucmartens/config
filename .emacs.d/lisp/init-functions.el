@@ -8,4 +8,10 @@
   (kill-buffer-and-window)
   (balance-windows))
 
+(defun switch-to-minibuffer ()
+  (interactive)
+  (if (active-minibuffer-window)
+      (select-window (active-minibuffer-window))
+    (error "Minibuffer is not active")))
+
 (provide 'init-functions)

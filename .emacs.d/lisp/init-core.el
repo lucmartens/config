@@ -29,6 +29,13 @@
 (global-hl-line-mode)                 ; Highlight current line
 (setq-default line-spacing '0.5)      ; Increase line-spacing.
 
+; Display ruler at column 80
+(setq-default display-fill-column-indicator-column 80)
+
+;; Prefered indentation
+(setq evil-shift-width 2)
+(setq js-indent-level 2)
+(setq indent-tabs-mode nil)
 
 ;; Delete trailing whitespace on save
 (add-hook 'write-file-hooks 'delete-trailing-whitespace)

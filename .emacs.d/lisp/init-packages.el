@@ -2,7 +2,7 @@
 (package-initialize)
 
 (add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/") t)
+       '("melpa" . "https://melpa.org/packages/") t)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -56,8 +56,33 @@
   :config
   (load-theme 'doom-vibrant t))
 
+(use-package add-node-modules-path
+  :hook js-mode-hook)
+
+(use-package prettier-js
+  :hook js-mode-hook)
+
 (use-package clojure-mode)
 
+(use-package parinfer
+  :init
+  (setq parinfer-extensions
+        '(defaults       ; should be included.
+          pretty-parens  ; different paren styles for different modes.
+          evil           ; If you use Evil.
+          paredit        ; Introduce some paredit commands.
+          smart-yank))   ; Yank behavior depend on mode.
+  :hook
+  (lisp-mode . parinfer-mode)
+  (clojure-mode . parinfer-mode)
+  (clojurescript-mode . parinfer-mode)
+  (emacs-lisp-mode . parinfer-mode))
+
+(use-package clj-refactor
+  :hook (clojure-mode . clj-refactor-mode))
+
 (use-package cider)
+
+(use-package markdown-mode)
 
 (provide 'init-packages)
